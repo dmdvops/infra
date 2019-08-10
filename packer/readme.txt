@@ -1,0 +1,1 @@
+packer build -var 'project_id=week3-249015' -var 'source_image=ubuntu-1604-xenial-v20190807' ubuntu16.json
