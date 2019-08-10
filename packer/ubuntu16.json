@@ -1,11 +1,11 @@
 {
-  "variables": [
+  "variables":
     {
     "project_id": null,
     "source_image": null ,
     "machine_type": "f1-micro"
-    }
-  ],
+    },
+
   "builders": [
     {
     "type": "googlecompute",
