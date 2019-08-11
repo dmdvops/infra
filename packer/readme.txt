@@ -1,1 +1,2 @@
-packer build -var 'project_id=week3-249015' -var 'source_image=ubuntu-1604-xenial-v20190807' ubuntu16.json
+packer build -var 'project_id=infra-249419' -var 'source_image=ubuntu-1604-xenial-v20190807' db.json
+packer build -var 'project_id=infra-249419' -var 'source_image=ubuntu-1604-xenial-v20190807' app.json
