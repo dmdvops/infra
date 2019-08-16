@@ -4,4 +4,4 @@
 #*.tfvars
 .terraform/
 .venv/
-
+*.retry

@@ -1,0 +1,21 @@
+# Setup and configure ruby things for reddit app
+- name: "Reddit App: Install mongodb"
+  hosts: db
+  gather_facts: no
+  become: yes
+
+  tasks:
+  - name: Add an apt key by id from a keyserver
+    apt_key:
+      url: https://www.mongodb.org/static/pgp/server-3.2.asc
+      id: D68FA50FEA312927
+
+  - name: Add mongo repository into sources list
+    apt_repository:
+      repo: deb https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse
+      state: present
+
+  - name: Install mongodb and required packages
+    apt:
+      name: mongodb-org
+      update_cache: yes
