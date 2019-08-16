@@ -1,0 +1,73 @@
+# Setup and configure ruby things for reddit app
+- name: "Reddit App: Configure app environment"
+  hosts: all
+  gather_facts: no
+  become: yes
+
+  tasks:
+  - name: Install ruby and rubygems and required packages
+    apt: "name={{ item }} state=present"
+    with_items:
+      - ruby-full
+      - ruby-dev
+      - build-essential
+
+  - name: Install Ruby bundler
+    gem:
+      name: bundler
+      state: present
+      user_install: no
+
+# Setup and configure mongodb for reddit app
+- name: "Reddit App: Install mongodb"
+  hosts: all
+  gather_facts: no
+
+  tasks:
+  - name: Install mongodb package
+    debug:
+      msg: "В этом сценарии нужно добавить модули для установки mongodb, после можно удалить вызов модуля debug, который выводит это сообщение"
+
+# Deploy reddit app
+- name: "Reddit App: Deploy application"
+  hosts: reddit_app
+  gather_facts: no
+
+  tasks:
+  - name: Copy systemd unit
+    copy:
+      src: files/puma.service
+      dest: /etc/systemd/system/puma.service
+    become: yes
+    notify: systemd daemon-reload
+
+  - name: "Actual code of  application"
+    git:
+      repo: 'https://github.com/Artemmkin/reddit.git'
+      dest: /home/appuser/reddit
+      update: no
+#    notify: restart puma.service
+
+  - name: Installs gems using a Gemfile
+    bundler:
+      state: latest
+      chdir: /home/appuser/reddit
+#    notify: restart puma.service
+
+  # - name: enable and started puma
+  #   systemd:
+  #     name: puma.service
+  #     state: started
+  #     enabled: yes
+  #   become: yes
+
+  handlers:
+    - name: systemd daemon-reload
+      systemd:
+        daemon_reload: yes
+
+    - name: restart puma.service
+      systemd:
+        name: puma.service
+        state: restarted
+
