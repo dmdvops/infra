@@ -1,6 +1,6 @@
 # Setup and configure ruby things for reddit app
 - name: "Reddit App: Install mongodb"
-  hosts: db
+  hosts: all
   gather_facts: no
   become: yes
 

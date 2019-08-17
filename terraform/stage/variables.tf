@@ -13,10 +13,10 @@ variable public_key_path {
 
 variable app_disk_image {
   description = "Disk image for reddit app"
-  default     = "reddit-app-1565557162"
+  default     = "reddit-app-base"
 }
 
 variable db_disk_image {
   description = "Disk image for reddit db"
-  default     = "reddit-db-1565556976"
+  default     = "reddit-db-base"
 }
