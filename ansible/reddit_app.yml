@@ -15,7 +15,7 @@
       tags: db-tag
       notify: restart mongod.service
 
-    - name: Copy systemd unit
+    - name: Copy systemd unit for puma
       become: yes
       copy:
         src: files/puma.service
