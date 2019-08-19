@@ -1,0 +1,20 @@
+---
+- name: Install ruby and rubygems and required packages
+  apt: 
+    state: present
+    update_cache: yes
+    name: "{{ packages }}"
+  vars:
+    packages:
+      - ruby-full
+      - ruby-dev
+      - build-essential
+
+  tags: ruby
+
+- name: Install Ruby bundler
+  gem:
+    name: bundler
+    state: present
+    user_install: no
+  tags: ruby

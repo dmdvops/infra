@@ -5,3 +5,7 @@
 .terraform/
 .venv/
 *.retry
+# Vagrant
+.vagrant/
+*.logs
+*.log
