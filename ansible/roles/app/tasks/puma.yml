@@ -1,7 +1,7 @@
 ---
 - name: Copy systemd unit for puma
-  copy:
-    src: puma.service
+  template:
+    src: puma.service.j2
     dest: /etc/systemd/system/puma.service
   notify: 
   - systemd daemon-reload
@@ -10,9 +10,9 @@
 - name: Add config for DB connection
   template:
     src: db_config.j2
-    dest: /home/appuser/db_config
-    owner: appuser
-    group: appuser
+    dest: "/home/{{ deploy_user }}/db_config"
+    owner: "{{ deploy_user }}"
+    group: "{{ deploy_user }}"
 
 - name: enable puma
   systemd:
